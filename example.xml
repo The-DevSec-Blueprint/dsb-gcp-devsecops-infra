@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Architecture Diagram">
+    <mxGraphModel dx="1086" dy="519" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Google Cloud Platform" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="40" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="GitLab" style="shape=mxgraph.cloud.computer;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="GitLab Runners" style="shape=mxgraph.cloud.computer;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="GKE" style="shape=mxgraph.cloud.container_services;" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Google Cloud Storage" style="shape=mxgraph.cloud.cloud_storage;" vertex="1" parent="1">
+          <mxGeometry x="160" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Google Cloud Monitoring and Logging" style="shape=mxgraph.cloud.operations;" vertex="1" parent="1">
+          <mxGeometry x="320" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11" edge="1" parent="1" source="4" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
