@@ -8,12 +8,12 @@ on:
 
 jobs:
   run-terraform-apply:
+    needs: run-terraform-linter
     uses: ./.github/workflows/terraform-apply.yml
     permissions:
       contents: read
     secrets: inherit
   run-terraform-linter:
-    needs: [run-terraform-apply]
     uses: ./.github/workflows/terraform-linter.yml
     permissions:
       contents: read
