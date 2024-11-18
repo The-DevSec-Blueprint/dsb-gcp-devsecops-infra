@@ -1,0 +1,27 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'python'
+    entrypoint: 'pip'
+    args: ['install', '-r', 'requirements.txt']
+
+  # Step 2: Run tests (optional)
+  - name: 'python'
+    entrypoint: 'python'
+    args: ['-m', 'pytest']
+
+  # Step 3: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/fastapi-app', '.']
+
+  # Step 4: Push Docker image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/fastapi-app']
+
+  # Step 5: Deploy using Terraform (assuming Terraform files are set up)
+  - name: 'hashicorp/terraform'
+    args: ['init']
+  - name: 'hashicorp/terraform'
+    args: ['apply', '-auto-approve']
+
+images:
+  - 'gcr.io/$PROJECT_ID/fastapi-app'
