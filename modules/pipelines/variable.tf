@@ -23,3 +23,8 @@ variable "project_id" {
   description = "ID of the Google Cloud project"
   type        = string
 }
+
+variable "region" {
+  description = "Region where the Cloud Build trigger will be created"
+  type        = string
+}

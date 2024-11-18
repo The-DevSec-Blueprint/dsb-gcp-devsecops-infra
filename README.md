@@ -14,3 +14,12 @@
 
 - Click your GitHub namespace or organization, and you're done with this. You should see it here in the repositories and connections:
 ![alt text](image-2.png)
+
+- Click the 3 dots on the right hand side, click Link Repositories, and then connect the repository that you want to create a trigger for, and click 'Link':
+![alt text](image-3.png)
+
+### Band-aid
+
+- Navigate to the Triggers dashboard, click Connect Repository, and select fill out the form adn connect your repositories. Skip creating a trigger:
+
+![alt text](image-4.png)

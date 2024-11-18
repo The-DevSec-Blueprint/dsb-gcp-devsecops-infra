@@ -6,24 +6,28 @@ resource "google_service_account" "cloudbuild_service_account" {
   description  = "Cloud Build Service Account for ${var.cloudbuild_trigger_name}"
 }
 
-resource "google_project_iam_member" "act_as" {
+resource "google_project_iam_member" "cloud_build_roles" {
+  for_each = toset([
+    "roles/cloudbuild.builds.editor",
+    "roles/cloudbuild.serviceAgent",
+    "roles/source.admin",
+    "roles/storage.admin",
+    "roles/logging.logWriter",
+    "roles/iam.serviceAccountUser",
+    "roles/secretmanager.admin"
+  ])
   project = var.project_id
-  role    = "roles/iam.serviceAccountUser"
-  member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
-}
-
-resource "google_project_iam_member" "logs_writer" {
-  project = var.project_id
-  role    = "roles/logging.logWriter"
+  role    = each.value
   member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
 }
 
 resource "google_cloudbuild_trigger" "build_trigger" {
-  name        = var.cloudbuild_trigger_name
+  name        = "gh-trigger-${var.cloudbuild_trigger_name}"
   description = var.description
   filename    = var.filename
 
   service_account = google_service_account.cloudbuild_service_account.id
+  location        = var.region
 
   github {
     owner = "The-DevSec-Blueprint"
@@ -32,4 +36,11 @@ resource "google_cloudbuild_trigger" "build_trigger" {
       branch = "^main$"
     }
   }
+
+  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+
+  depends_on = [
+    google_service_account.cloudbuild_service_account,
+    google_project_iam_member.cloud_build_roles
+  ]
 }
