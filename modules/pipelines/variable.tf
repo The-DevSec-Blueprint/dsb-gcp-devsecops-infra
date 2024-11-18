@@ -18,3 +18,8 @@ variable "github_repo_name" {
   description = "Name of the GitHub repository"
   type        = string
 }
+
+variable "project_id" {
+  description = "ID of the Google Cloud project"
+  type        = string
+}

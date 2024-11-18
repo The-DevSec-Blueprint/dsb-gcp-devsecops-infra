@@ -1,5 +1,7 @@
 module "gcp_python_fastapi_pipeline" {
-  source                  = "./modules/pipelines"
+  source = "./modules/pipelines"
+
+  project_id              = var.project_id
   cloudbuild_trigger_name = "gcp-python-fastapi"
   description             = "Cloud Build Trigger for GCP Python FastAPI"
   github_repo_name        = "gcp-python-fastapi"
