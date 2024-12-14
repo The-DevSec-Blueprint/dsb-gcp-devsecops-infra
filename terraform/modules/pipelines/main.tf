@@ -13,13 +13,24 @@ resource "google_project_iam_member" "cloud_build_roles" {
     "roles/source.admin",
     "roles/storage.admin",
     "roles/logging.logWriter",
-    "roles/iam.serviceAccountUser",
-    "roles/secretmanager.admin",
-    "roles/secretmanager.secretAssessor"
+    "roles/iam.serviceAccountUser"
   ])
   project = var.project_id
   role    = each.value
   member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
+}
+
+resource "google_secret_manager_secret_iam_binding" "secret_manager_binding" {
+  for_each = toset([
+    "roles/secretmanager.secretAccessor",
+    "roles/secretmanager.admin"
+  ])
+
+  project   = var.project_id
+  secret_id = var.secret_id
+  role      = each.value
+
+  members = ["serviceAccount:${google_service_account.cloudbuild_service_account.email}"]
 }
 
 resource "google_cloudbuild_trigger" "build_trigger" {

@@ -35,6 +35,8 @@ resource "google_secret_manager_secret" "snyk_token" {
 resource "google_secret_manager_secret_version" "snyk_token_version" {
   secret      = google_secret_manager_secret.snyk_token.id
   secret_data = var.SNYK_TOKEN
+
+  depends_on = [google_secret_manager_secret.snyk_token]
 }
 
 # Pipelines
@@ -47,6 +49,7 @@ module "gcp_python_fastapi_pipeline" {
   cloudbuild_trigger_name = "gcp-python-fastapi"
   description             = "Cloud Build Trigger for GCP Python FastAPI"
   github_repo_name        = "gcp-python-fastapi"
+  secret_id               = google_secret_manager_secret.snyk_token.secret_id
 
   depends_on = [
     google_artifact_registry_repository.default,

@@ -28,3 +28,8 @@ variable "region" {
   description = "Region where the Cloud Build trigger will be created"
   type        = string
 }
+
+variable "secret_id" {
+  description = "ID of the secret to be injected into the Cloud Build"
+  type        = string
+}
