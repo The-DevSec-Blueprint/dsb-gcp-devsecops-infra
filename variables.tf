@@ -9,3 +9,6 @@ variable "region" {
   description = "Region"
   default     = "us-central1"
 }
+
+# Terraform Environment Variables
+variable "SNYK_TOKEN" {}
