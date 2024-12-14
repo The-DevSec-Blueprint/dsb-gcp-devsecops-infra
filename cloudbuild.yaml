@@ -1,0 +1,43 @@
+steps:
+  # Step 1: Build Docker Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-app:latest', '.']
+  
+  # Step 2: Push Docker Image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/my-app:latest']
+  
+  # Step 3: Run Unit Tests
+  - name: 'python'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pip install -r requirements.txt
+        pytest tests/
+  
+  # Step 4: Scan Docker Image with Trivy
+  - name: 'aquasec/trivy'
+    args: ['image', '--exit-code', '1', 'gcr.io/$PROJECT_ID/my-app:latest']
+  
+  # Step 5: Snyk Code and Dependency Scanning
+  - name: 'node'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        npm install -g snyk
+        snyk auth $SNYK_TOKEN
+        snyk test
+        snyk code test
+  
+  # Step 6: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud run deploy my-service \
+        --image gcr.io/$PROJECT_ID/my-app:latest \
+        --region us-central1 \
+        --platform managed
