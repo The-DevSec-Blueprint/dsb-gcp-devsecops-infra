@@ -7,7 +7,7 @@ env:
   TF_CLOUD_ORGANIZATION: "DSB"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "dsb-gcp-devsecops-infra"
-  CONFIG_DIRECTORY: "./"
+  CONFIG_DIRECTORY: "./terraform"
 
 jobs:
   terraform:
