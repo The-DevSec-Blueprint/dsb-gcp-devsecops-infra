@@ -47,7 +47,6 @@ module "gcp_python_fastapi_pipeline" {
   region     = var.region
 
   cloudbuild_trigger_name = "gcp-python-fastapi"
-  service_name            = "gcp-python-fastapi-service"
   description             = "Cloud Build Trigger for GCP Python FastAPI"
   github_repo_name        = "gcp-python-fastapi"
   secret_id               = google_secret_manager_secret.snyk_token.secret_id
