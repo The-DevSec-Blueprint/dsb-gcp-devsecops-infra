@@ -3,6 +3,11 @@ variable "cloudbuild_trigger_name" {
   type        = string
 }
 
+variable "service_name" {
+  description = "Name of the Cloud Run service"
+  type        = string
+}
+
 variable "description" {
   description = "Description of the Cloud Build trigger"
   type        = string
